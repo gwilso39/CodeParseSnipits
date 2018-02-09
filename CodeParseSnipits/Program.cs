@@ -40,12 +40,14 @@ namespace CodeParseSnipits
         {
             bool[] array = new bool[256];
 
-            string text = "SuperCaliFragilisticExpealidocious";
+            Console.WriteLine("Input a String:");
+            string text = Console.ReadLine();
 
             foreach (char value in text)
             {
                 if (array[(int)value])
                 {
+                    Console.WriteLine($"Duplicated character is a '{value}'");
                     return false;
                 }
                 else
@@ -55,7 +57,6 @@ namespace CodeParseSnipits
             }return true;
         }
          
-
         //When creating something which will require user input:
         private int UserInput()
         {
