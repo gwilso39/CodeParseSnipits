@@ -10,16 +10,81 @@ namespace CodeParseSnipits
     {
         static void Main(string[] args)
         {
-            Console.WriteLine($"String has unique Chars = {UniqueChars()}");
-            Console.ReadLine();
+            var input = false;
+            do
+            {
+                try
+                {
+                    Console.Write("Enter a number to test for Palindrome: ");
+                    Console.WriteLine($"{IsOrCanBePalindrome(int.Parse(Console.ReadLine()))}");
+                    
+                    //Console.WriteLine($"The Reverse String of your input is: {ReverseString()}.");
+                    
+                    //Console.WriteLine($"String has unique Chars = {UniqueChars()}");
+                    
+                    //Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
+                    input = true;
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid Input");
+                }
+            } while (!input);
 
             //What does "ReadKey" do?
             //var inputKey = Console.ReadKey();
             //Console.WriteLine($"{ inputKey}");
         }
 
-        //Creating a method to solve:
-        //Given a string of only 9 integers ranging from 0-9, find the missing integer
+        //Methods to determine if a number is a palidrome
+        private static int Reverse(int original)
+        {
+            int reverse = 0;
+                while (original != 0)
+            {
+                int digit = original % 10;
+                reverse = reverse * 10 + digit;
+                original = original / 10;
+            }
+            return reverse;
+        }
+        private static bool IsPalidrome(int original, int reverse)
+        {
+            return original == reverse;
+        }
+        public static bool IsOrCanBePalindrome(int number)
+        {
+            const int MaxPalindrome = 1000000;
+
+            while (number < MaxPalindrome)
+            {
+                int reverse = Reverse(number);
+                bool isPal = IsPalidrome(number, reverse);
+                if (isPal)
+                {
+                    return true;
+                }
+
+                number += reverse;
+            }
+            return false;
+        }
+
+        //Method to receive a string and return the reverse of the string
+        private static string ReverseString()
+        {
+            Console.Write("Input a string value here: ");
+            string inputReceived = (Console.ReadLine());
+            string reversedString = "";
+
+            for (int i = inputReceived.Length - 1; i>=0; i--)
+            {
+                reversedString += inputReceived[i];
+            }
+            return reversedString;
+        }
+
+        //Given a string of only 9 random integers ranging from 0-9, find the missing integer
         public static int FindMissingNumber()
         {
             var numbers = new List<int>() { 9, 4, 8, 6, 7, 2, 0, 1, 5 };
@@ -34,7 +99,6 @@ namespace CodeParseSnipits
             return -1; //if no missing number
         }
 
-        //Creating a method to solve:
         //Given an input string, determine if any characters are reused
         public static bool UniqueChars()
         {
@@ -108,6 +172,41 @@ namespace CodeParseSnipits
             }
             return exit;
         }
+		
+		//Method to return the answer to the Pythagorean theorem obtaining user input
+		//this top piece would be inserted in the Main method
+  //      {
+  //          Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
+  //      }
+        public static double CalculateThirdSide()
+        {
+            double a, b, c;
+            Console.WriteLine("Enter the First Value ");
+            a = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the Second Value ");
+            b = double.Parse(Console.ReadLine());
+            c = Math.Sqrt((Math.Pow(a,2))+(Math.Pow(b,2)));
+            return c;
+        }
+		
+		
+		//Method calculate the average test score for 4 tests obtaining user input
+  //      {
+  //          Console.WriteLine($"Your Grade is: {CalculateTestScores()}");
+  //      }
+        private static object CalculateTestScores()
+        {
+        double cumulativeScores = 0;
+        int i;
+        for (i=0; i<=3; i++)
+            {
+                Console.Write($"Enter score #{i + 1}: ");
+                cumulativeScores += (double.Parse(Console.ReadLine()));
+            }
+            var averageScore = cumulativeScores / i;
+            return averageScore;
+        }
+		
         
     }
 }
