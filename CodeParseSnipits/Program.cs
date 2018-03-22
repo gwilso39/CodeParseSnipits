@@ -15,11 +15,13 @@ namespace CodeParseSnipits
             {
                 try
                 {
-                    Console.Write("Enter a number to test for Palindrome: ");
-                    Console.WriteLine($"{IsOrCanBePalindrome(int.Parse(Console.ReadLine()))}");
-                    
+                    //Console.Write("Enter a number to test for Palindrome: ");
+                    //Console.WriteLine($"{IsOrCanBePalindrome(int.Parse(Console.ReadLine()))}");
+
                     //Console.WriteLine($"The Reverse String of your input is: {ReverseString()}.");
-                    
+
+                    LeapYear();
+
                     //Console.WriteLine($"String has unique Chars = {UniqueChars()}");
                     
                     //Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
@@ -34,6 +36,49 @@ namespace CodeParseSnipits
             //What does "ReadKey" do?
             //var inputKey = Console.ReadKey();
             //Console.WriteLine($"{ inputKey}");
+        }
+
+        private static void LeapYear()
+        {
+            Console.WriteLine("Leap Year test; What year would you like to check: ");
+            var inputYear = int.Parse(Console.ReadLine());
+            bool done = false;
+
+            do
+            {
+                if (((inputYear % 4 == 0) && (inputYear % 100 == 0) && (inputYear % 400 == 0)) || 
+                    ((inputYear % 4 == 0) && (inputYear % 100 != 0)))
+                {
+                    Console.WriteLine("Your year is a leap year...");
+                    Console.WriteLine("The next 20 leap years are as follows:");
+                    int ActualLeapYear = inputYear;
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Console.WriteLine($"{ActualLeapYear}");
+                        ActualLeapYear += 4;
+                    }
+                    done = true;
+                }
+                else
+                {
+                    Console.WriteLine("The year you input is not a leap year.");
+
+                    bool yearFound = false;
+                    do
+                    {
+                        inputYear += 1;
+                        var testVariable = inputYear % 100;
+                        if (((inputYear % 4 == 0) && (inputYear % 100 == 0) && (inputYear % 400 == 0)) ||
+                            ((inputYear % 4 == 0) && (inputYear % 100 != 0)))
+                        {
+                            yearFound = true;
+                            Console.WriteLine($"The next leap year is {inputYear}");
+                            done = true;
+                        }
+                    }
+                    while (!yearFound);
+                }
+            } while (!done);
         }
 
         //Methods to determine if a number is a palidrome
