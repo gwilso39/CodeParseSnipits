@@ -20,10 +20,14 @@ namespace CodeParseSnipits
 
                     //Console.WriteLine($"The Reverse String of your input is: {ReverseString()}.");
 
-                    LeapYear();
+                    //LeapYear();
 
                     //Console.WriteLine($"String has unique Chars = {UniqueChars()}");
-                    
+
+                    //Console.WriteLine($"{ReverseStringWords("Hello Big World")}");
+
+                    AlternateReverseStringWords();
+
                     //Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
                     input = true;
                 }
@@ -252,6 +256,40 @@ namespace CodeParseSnipits
             return averageScore;
         }
 		
-        
+        public static string ReverseStringWords(string phrase)
+        {
+            string sentence = "";
+            string word = "";
+            int i = 1;
+
+            foreach (char z in phrase)
+            {
+                if (char.IsWhiteSpace(z))
+                {
+                    sentence = word + " " + sentence;
+                    word = "";
+                }
+                else
+                {
+                    word += z;
+                    if (phrase.Length == i)
+                    {
+                        sentence = word + " " + sentence; 
+                    }
+                }
+                i++;
+            }
+            return sentence;
+        }
+
+        //ALTERNATE TO ABOVE
+        public static void AlternateReverseStringWords()
+        {
+            string str = "Hello World";
+            string[] words = str.Split(' ');
+            Array.Reverse(words);
+            str = string.Join(" ", words);
+            Console.WriteLine(str);
+        }
     }
 }
