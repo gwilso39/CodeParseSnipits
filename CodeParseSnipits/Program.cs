@@ -37,8 +37,7 @@ namespace CodeParseSnipits
                     //var completedTask = t.ContinueWith((i) => { Console.WriteLine("Completed"); },
                     //    TaskContinuationOptions.OnlyOnRanToCompletion);
                     //completedTask.Wait();
-                    //Playing with delegates
-                    //UseDelegate();
+                    UseDelegate();
 
                     //Console.Write("Enter a number to test for Palindrome: ");
                     //Console.WriteLine($"{IsOrCanBePalindrome(int.Parse(Console.ReadLine()))}");
@@ -71,15 +70,22 @@ namespace CodeParseSnipits
 
         //Playing with delegates
         public delegate int Calculate(int a, int b);
-        public static int Add(int a, int b) { return (a + b); }
-        public static int Multiply(int a, int b) { return (a * b); }
+        //public static int Add(int a, int b) { return (a + b); }//Omit if using Lambda
+        //public static int Multiply(int a, int b) { return (a * b); }//Omit if using Lambda
 
         public static void UseDelegate()
         {
-            Calculate myMath = Add;
+            //Calculate myMath = Add;
+            
+            //Playing with LAMBDA
+            Calculate myMath = (x, y) => x + y;
+
             Console.WriteLine(myMath(4, 5));
 
-            myMath = Multiply;
+
+            //myMath = Multiply;
+            //More LAMBDA
+            myMath = (x, y) => x * y;
             Console.WriteLine(myMath(5, 5));
         }
 
