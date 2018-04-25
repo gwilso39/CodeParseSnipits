@@ -3,18 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace CodeParseSnipits
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var input = false;
             do
             {
                 try
                 {
+                    //Playing with multithreading and asynchronous processing
+                    //Section 1 of 2
+                    //Thread t = new Thread(new ThreadStart(ThreadMethod));
+                    //t.Start();
+                    //for (int i = 0; i < 4; i++)
+                    //{
+                    //    Console.WriteLine("Main Thread: Do some work.");
+                    //    Thread.Sleep(0);
+                    //}
+                    //t.Join();
+
+                    //Playing with Tasks and multithreading
+                    //Task<int> t = Task.Run(() => { return 42; });
+                    //t.ContinueWith((i) => { Console.WriteLine("Cancelled"); },
+                    //    TaskContinuationOptions.OnlyOnCanceled);
+                    //t.ContinueWith((i) => { Console.WriteLine("Faulted"); },
+                    //    TaskContinuationOptions.OnlyOnFaulted);
+                    //var completedTask = t.ContinueWith((i) => { Console.WriteLine("Completed"); },
+                    //    TaskContinuationOptions.OnlyOnRanToCompletion);
+                    //completedTask.Wait();
+                    //Playing with delegates
+                    //UseDelegate();
+
                     //Console.Write("Enter a number to test for Palindrome: ");
                     //Console.WriteLine($"{IsOrCanBePalindrome(int.Parse(Console.ReadLine()))}");
 
@@ -26,7 +51,9 @@ namespace CodeParseSnipits
 
                     //Console.WriteLine($"{ReverseStringWords("Hello Big World")}");
 
-                    AlternateReverseStringWords();
+                    //AlternateReverseStringWords();
+
+                    //CombineAndSortArray(new int[] { 1, 3, 4, 7, 9 }, new int[] { 2, 6, 5, 8, 10 });
 
                     //Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
                     input = true;
@@ -40,6 +67,31 @@ namespace CodeParseSnipits
             //What does "ReadKey" do?
             //var inputKey = Console.ReadKey();
             //Console.WriteLine($"{ inputKey}");
+        }
+
+        //Playing with delegates
+        public delegate int Calculate(int a, int b);
+        public static int Add(int a, int b) { return (a + b); }
+        public static int Multiply(int a, int b) { return (a * b); }
+
+        public static void UseDelegate()
+        {
+            Calculate myMath = Add;
+            Console.WriteLine(myMath(4, 5));
+
+            myMath = Multiply;
+            Console.WriteLine(myMath(5, 5));
+        }
+
+        //Playing with multithreading and asynchronous processing
+        //Section 2 of 2
+        public static void ThreadMethod()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("ThreadProc: {0}", i);
+                Thread.Sleep(0);
+            }
         }
 
         private static void LeapYear()
@@ -223,10 +275,6 @@ namespace CodeParseSnipits
         }
 		
 		//Method to return the answer to the Pythagorean theorem obtaining user input
-		//this top piece would be inserted in the Main method
-  //      {
-  //          Console.WriteLine($"Your Answer is: {CalculateThirdSide()}");
-  //      }
         public static double CalculateThirdSide()
         {
             double a, b, c;
@@ -237,7 +285,6 @@ namespace CodeParseSnipits
             c = Math.Sqrt((Math.Pow(a,2))+(Math.Pow(b,2)));
             return c;
         }
-		
 		
 		//Method calculate the average test score for 4 tests obtaining user input
   //      {
@@ -290,6 +337,75 @@ namespace CodeParseSnipits
             Array.Reverse(words);
             str = string.Join(" ", words);
             Console.WriteLine(str);
+        }
+
+        public static void CombineAndSortArray(int[] ArrayOne, int[] ArrayTwo)
+        {
+            int[] answerArray = new int[10];
+
+            bool done = false;
+            int i = 0;
+            int j = 0;
+            int k = 0;
+
+            do
+            {
+                if (ArrayOne[i] < ArrayTwo[j])
+                {
+                    answerArray[k] = ArrayOne[i];
+                    i++;
+                    k++;
+                }
+                else
+                {
+                    answerArray[k] = ArrayTwo[j];
+                    j++;
+                    k++;
+                }
+
+                if (k == answerArray.Length)
+                {
+                    done = true;
+                }
+            } while (!done);
+
+            Console.Write("Your answer is: ");
+            for (int g = 0; g <= answerArray.Length; g++)
+            {
+                Console.Write($"{answerArray[g]}, ");
+            }
+            //int[] answerArray = new int[ArrayOne.Length + ArrayTwo.Length];
+            //int i = 0;
+            //int j = 0;
+            //int k = 0;
+
+            //while (i < ArrayOne.Length && j < ArrayTwo.Length)
+            //{
+            //    if (ArrayOne[i] < ArrayTwo[j])
+            //    {
+            //        answerArray[k] = ArrayOne[i];
+            //        i++;
+            //    }
+            //    else
+            //    {
+            //        answerArray[k] = ArrayTwo[j];
+            //        j++;
+            //    }
+            //}
+
+            //while (i < ArrayOne.Length)
+            //{
+            //    answerArray[k] = ArrayOne[i];
+            //    i++;
+            //    k++;
+            //}
+
+            //while (j < ArrayTwo.Length)
+            //{
+            //    answerArray[k] = ArrayTwo[j];
+            //    j++;
+            //    k++;
+            //}
         }
     }
 }
